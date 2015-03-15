@@ -643,7 +643,7 @@ addEventListener("DOMContentLoaded", function(e) {
 			} else if (e.which == 87) {
 				setAsWeakEvent();
 				e.preventDefault();
-			} else if (e.which == 189) {
+			} else if (e.which == 189 || e.which == 173) {
 				addAssociationEvent();
 				e.preventDefault();
 			} else if (e.which == 88) {

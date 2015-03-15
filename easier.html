@@ -1,0 +1,159 @@
+<html>
+<head>
+	<title>EasieR - Diagram</title>
+	<script src="js/easier.js"></script>
+	<link rel="stylesheet" href="css/prefixed-easier.css">
+</head>
+<body>
+
+<div id="main-app">
+	<canvas id="screen" width="1000" height="600">
+	</canvas>
+	<div id="menu">
+		<a><div id="add-entity" class="menu-button"><div><span style="color:orange">E</span>nt</div></div></a>
+		<a><div id="add-attribute" class="menu-button"><div><span style="color:orange">A</span>ttr</div></div></a>
+		<a><div id="add-relation" class="menu-button"><div><span style="color:orange">R</span>el</div></div></a>
+		<a><div id="add-isa" class="menu-button"><div><span style="color:orange">I</span>sa</div></div></a>
+		<a><div id="add-association" class="menu-button"><div><span style="color:orange">-</span>-</div></div></a>
+		<a><div id="remove-association" class="menu-button"><div>-<span style="color:orange">X</span>-</div></div></a>
+		<a><div id="set-weak" class="menu-button"><div><span style="color:orange">W</span>k</div></div></a>
+		<a><div id="set-key" class="menu-button"><div><span style="color:orange">K</span>ey</div></div></a>
+		<a><div id="delete" class="menu-button"><div><span style="color:orange">D</span>el</div></div></a>
+		<a><div id="add-label" class="menu-button"><div><span style="color:orange">L</span>bl</div></div></a>
+		<a><div id="change-caption-opt" class="menu-button"><div>re<span style="color:orange">N</span>m</div></div></a>
+		<a><div id="get-diagram" class="menu-button"><div><span style="color:orange">G</span>et</div></div></a>
+		<a><div id="logo" class="menu-button" style="font-size:0.799em;margin-top:40px;"><div><span style="color:orange">E</span>asie<span style="color:orange">R</span></div></div></a>
+		<a href="http://prajogotio.github.io" target="_blank"><div id="nametag" class="menu-button" style="font-size:0.5em;"><div>by <span style="color:orange">prajogo tio</span>, 2015</div></div></a>
+	</div>
+
+	<div id="add-entity-form" class="form">
+		<div id="add-entity-form-title" class="form-title">Add New Entity</div>
+		<div id="add-entity-name-wrapper" class="form-tier">
+			<div style="margin-right:10px">Entity name: </div><div><input type="text" value="entity name" id="add-entity-name" class="form-text" onClick="this.select()"></div>
+		</div>
+		<div class="form-tier">
+			<div><input type="checkbox" value="is weak" id="entity-is-weak-checkbox" style="margin-right:5px;" onClick="document.getElementById('add-entity-ok-button').focus();"> entity is weak </div>
+		</div>
+		<div id="add-entity-button-wrapper" class="form-button-wrapper">
+			<button id="add-entity-ok-button" class="form-button">OK</button> <button id="add-entity-cancel-button" class="form-button">Cancel</button>
+		</div>
+	</div>
+	<div id="entity-chooser">
+		<div class="chooser">
+			<div id="chooser-label"> Select an Entity to proceed</div> <div><button id="chooser-cancel-button">Cancel</button></div>
+		</div>
+	</div>
+	<div id="shadower">
+	</div>
+	<div id="shadow-menu">
+	</div>
+	<div id="notifier">
+	</div>
+
+	<div id="add-attribute-form" class="form">
+		<div id="add-entity-form-title" class="form-title">Add Attribute to selected entity</div>
+		<div class="form-tier">
+			<div style="margin-right:10px">Entity name: </div><div id="add-attribute-entity-name"></div>
+		</div>
+		<div class="form-tier">
+			<div style="margin-right:10px">Attribute name: </div><div><input type="text" value="attribute" id="add-attribute-name" class="form-text" onClick="this.select()"></div>
+		</div>
+		<div class="form-tier">
+			<div><input type="checkbox" value="is key" style="margin-right:5px;" id="attribute-is-key-checkbox" onClick="document.getElementById('add-attribute-ok-button').focus();">attribute is key</div>
+		</div>
+		<div class="form-button-wrapper">
+			<button id="add-attribute-ok-button" class="form-button">OK</button>
+			<button id="add-attribute-cancel-button" class="form-button">Cancel</button>
+		</div>
+	</div>
+
+	<div id="add-relation-form" class="form">
+		<div id="add-relation-form-title" class="form-title">Add new Relation</div>
+		<div class="form-tier">
+			<div style="margin-right:10px">Relation name: </div>
+			<div><input type="text" id="add-relation-name" value="test name" class="form-text" onClick="this.select()"></div>
+		</div>
+		<div class="form-button-wrapper">
+			<button id="add-relation-ok-button" class="form-button">OK</button>
+			<button id="add-relation-cancel-button" class="form-button">Cancel</button>
+		</div>
+	</div>
+	<div id="confirmation" class="form">
+		<div id="confirmation-message" class="form-title"></div>
+		<div class="form-button-wrapper">
+			<button id="confirmation-ok-button" class="form-button">OK</button>
+			<button id="confirmation-cancel-button" class="form-button">Cancel</button>
+		</div>
+	</div>
+	<div id="select-association-type" class="form">
+		<div class="form-title">Choose type of association</div>
+		<div class="form-tier flex-centered">
+			<a>
+				<div id="N-association" class="form-assoc-button">
+					N--
+				</div>
+			</a>
+			<a>
+				<div id="1-association" class="form-assoc-button">
+					&lt;--
+				</div>
+			</a>
+			<a>
+				<div id="referential-integrity" class="form-assoc-button">
+					(--
+				</div>
+			</a>
+		</div>
+		<div class="form-button-wrapper">
+			<button id="select-association-type-cancel-button" class="form-button">Cancel</button>
+		</div>
+	</div>
+	<div id="remove-association-type" class="form">
+		<div class="form-title">Delete association</div>
+		<div class="form-tier"><div style="margin-right:10px">Relation : </div><div id="remove-assoc-rel-name"></div> </div>
+		<div class="form-list" id="assoc-list">
+		</div>
+		<div class="form-button-wrapper">
+			<button id="remove-association-type-cancel-button" class="form-button">Cancel</button>
+		</div>
+	</div>
+
+	<div id="add-label-form" class="form">
+		<div class="form-title">Add New Label</div>
+		<div class="form-tier">
+			<div style="margin-right:10px">Label caption: </div><div><input type="text" value="label" id="add-label-caption" class="form-text" onClick="this.select()"></div>
+		</div>
+		<div class="form-button-wrapper">
+			<button id="add-label-ok-button" class="form-button">OK</button> <button id="add-label-cancel-button" class="form-button">Cancel</button>
+		</div>
+	</div>
+
+	<div id="change-caption-form" class="form">
+		<div class="form-title">Change caption</div>
+		<div class="form-tier">
+			<div style="margin-right:10px">Caption: </div><div><input type="text" value="caption" id="change-caption" class="form-text" onClick="this.select()"></div>
+		</div>
+		<div class="form-button-wrapper">
+			<button id="change-caption-ok-button" class="form-button">OK</button> <button id="change-caption-cancel-button" class="form-button">Cancel</button>
+		</div>
+	</div>
+
+	<div id="get-image-form" class="form">
+		<div class="form-title">Export Diagram</div>
+		<div class="form-tier">
+			<div style="margin-right:10px">Diagram name: </div><div><input type="text" value="diagram" id="get-image-name" class="form-text" onClick="this.select()"></div>
+		</div>
+		<div class="form-button-wrapper">
+			<button id="get-image-ok-button" class="form-button">OK</button> <button id="get-image-cancel-button" class="form-button">Cancel</button>
+		</div>
+	</div>
+	<div id="download-image" class="form">
+		<div class="form-title">Download Diagram</div>
+		<div class="form-tier">
+			<div style="margin-right:10px"><a id="download-image-link"><div id="download-image-caption"></div></a></div>
+		</div>
+	</div>
+</div>
+
+</body>
+</html>

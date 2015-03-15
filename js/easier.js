@@ -210,10 +210,10 @@ Diamond.prototype.render = function(g) {
 
 	if (this.isWeak) {
 		g.beginPath();
-		g.moveTo(-0.7 * width - states.WEAK_MARGIN, 0);
-		g.lineTo(0, 1 * height + states.WEAK_MARGIN);
-		g.lineTo(0.7 * width + states.WEAK_MARGIN, 0);
-		g.lineTo(0, -1 * height - states.WEAK_MARGIN);
+		g.moveTo(-0.8 * (width + states.WEAK_MARGIN), 0);
+		g.lineTo(0, 1 * (height + states.WEAK_MARGIN));
+		g.lineTo(0.8 * (width + states.WEAK_MARGIN), 0);
+		g.lineTo(0, -1 * (height + states.WEAK_MARGIN));
 		g.closePath();
 		g.fill();
 		g.stroke();
@@ -428,16 +428,16 @@ Relation.prototype.setIsa = function() {
 Relation.prototype.render = function(g) {
 	if(states.checkIsOnFocus(this)) this.renderable.fillStyle = "orange";
 	else this.renderable.fillStyle = "white";
-	this.isWeak = false;
-	this.renderable.isWeak = false;
-	for (var i = 0; i < this.entities.length; ++i) {
-		if(this.isWeak) break;
-		if (this.entities[i].entity.isWeak) {
-			this.isWeak = true;
-			this.renderable.setWeak();
-			break;
-		}
-	}
+	// this.isWeak = false;
+	// this.renderable.isWeak = false;
+	// for (var i = 0; i < this.entities.length; ++i) {
+	// 	if(this.isWeak) break;
+	// 	if (this.entities[i].entity.isWeak) {
+	// 		this.isWeak = true;
+	// 		this.renderable.setWeak();
+	// 		break;
+	// 	}
+	// }
 
 	this.renderable.render(g);
 	for (var i = 0; i < this.attributes.length; ++i) {
@@ -584,6 +584,16 @@ Relation.prototype.removeEntity = function(entity) {
 			return;
 		}
 	}
+}
+
+Relation.prototype.setWeak = function() {
+	this.isWeak = true;
+	this.renderable.isWeak = true;
+}
+
+Relation.prototype.unsetWeak = function() {
+	this.isWeak = false;
+	this.renderable.isWeak = false;
 }
 
 /* ========================================================================== */
@@ -1352,7 +1362,7 @@ function setAsWeakEvent() {
 	states.highlightedPositionVector = [];
 	states.commands["SYSTEM_KEY_ACTIVE"] = false;
 	states.chooserChecker = function() {
-		return states.elementOnFocus.constructor == Entity;
+		return states.elementOnFocus.constructor == Entity || (states.elementOnFocus.constructor == Relation && states.elementOnFocus.isIsaRelationship == false);
 	}
 
 	states.chosenHandler = function() {

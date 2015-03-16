@@ -703,7 +703,7 @@ addEventListener("DOMContentLoaded", function(e) {
 		states.screen.style.cursor = "default";
 		document.body.style.cursor = "default";
 
-		if(states.screen.width - 30 < curX && curX <= states.screen.width + 30 && states.screen.height - 30 <= curY && curY <= states.screen.height + 30) {
+		if(states.screen.width - 50 < curX && curX <= states.screen.width + 50 && states.screen.height - 50 <= curY && curY <= states.screen.height + 50) {
 			states.screen.style.cursor = "nwse-resize";
 			document.body.style.cursor = "nwse-resize";
 			states.commands["CAN_RESIZE"] = true;
@@ -1002,7 +1002,7 @@ function getBoundingClientRect() {
 	states.bodyBB = document.body.getBoundingClientRect();
 	states.screenOffset = {x : states.screenBB.left - states.bodyBB.left,
 						   y : states.screenBB.top - states.bodyBB.top };
-	states.isBoundingClientRectAvailable = true;
+	//states.isBoundingClientRectAvailable = true;
 }
 
 function getElementOnFocus(x, y) {
